@@ -1,25 +1,25 @@
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 
 set tabstop=4
 set autoindent
 set linebreak
 set nu
-"map <Leader>b :MiniBufExplorer<cr>
-"map <Leader>t :TMiniBufExplorer<cr>
-"let g:miniBufExplModSelTarget = 1
-"let g:miniBufExplorerMoreThanOne = 0
-"let g:miniBufExplCloseOnSelect = 1
+set hlsearch
+set incsearch
+
+let mapleader = ","
+let g:mapleader = ","
+
+nmap <leader>/ :nohls<CR>
 nmap <C-h> :bprev!<CR>
 nmap <C-l> :bnext!<CR>
-"""nmap <F5> :NERDTreeToggle<CR>
-"""nmap <F10> :Tlist<CR>s
 nmap <F4> :bd<CR>
 
 " Buftabs settings
 
 " // Show base file name only
-let g:buftabs_only_basename=1
+let g:buftabs_only_basename = 1
 
 " Source Explorer settings
 " // The switch of the Source Explorer 

@@ -77,7 +77,6 @@ let s:source_explorer_title  = "Source_Explorer"
 let s:nerd_tree_switch       = 0
 let s:nerd_tree_title        = "_NERD_tree_"
 
-
 " }}}
 
 " Trinity_InitTagList() {{{

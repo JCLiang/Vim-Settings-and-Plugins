@@ -3588,8 +3588,7 @@ function! s:GetEditWinNR()
 	let l:pluginList = [
             \ "__Tag_List__", 
 		    \ "_NERD_tree_", 
-		    \ "Source_Explorer",
-            \ "-MiniBufExplorer-"
+		    \ "Source_Explorer"
 	    \]
 
 	while 1
