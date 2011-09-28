@@ -2,7 +2,6 @@ call pathogen#infect()
 call pathogen#helptags()
 
 set tabstop=4
-set autoindent
 set linebreak
 set nu
 set hlsearch
