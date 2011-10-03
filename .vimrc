@@ -73,3 +73,7 @@ nmap <F10>  :TrinityToggleTagList<CR>
 
 " Open and close the NERD_tree.vim separately 
 nmap <F11>  :TrinityToggleNERDTree<CR>
+
+augroup filetypedetect
+	au BufNewFile, BufRead *.pig set filetype=pig syntax=pig
+augroup END
