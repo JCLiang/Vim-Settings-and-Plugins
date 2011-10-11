@@ -2,6 +2,7 @@ call pathogen#infect()
 call pathogen#helptags()
 
 set tabstop=4
+set shiftwidth=4
 set linebreak
 set nu
 set hlsearch
