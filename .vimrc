@@ -8,6 +8,8 @@ set linebreak
 set nu
 set hlsearch
 set incsearch
+set nobackup
+syntax enable
 
 let mapleader = ","
 let g:mapleader = ","
