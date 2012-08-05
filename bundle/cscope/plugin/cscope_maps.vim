@@ -28,6 +28,7 @@ function! ConnectCscopeDatabase()
   let project_base_path = $HOME . "/trunk/" . system("repo list . | awk '{print $1}'")
   let project_base_path = substitute(project_base_path, "\n", "", "")
   let project_cscope_db = project_base_path . "/.git/cscope.out"
+  let project_pycscope_db = project_base_path . "/.git/pycscope.out"
 
   " add cscope database from local repo
   if filereadable(project_cscope_db)
@@ -42,6 +43,12 @@ function! ConnectCscopeDatabase()
     cs add $CSCOPE_DB
     echo $CSCOPE_DB . " added from \$CSCOPE_DB."
   endif
+
+  " add pycscope database from local repo
+  if filereadable(project_pycscope_db)
+    exe "cs add " . project_pycscope_db . " " . project_base_path
+    echo project_pycscope_db . " added with base path: " . project_base_path . "."
+  endif
 endfunction
 
 
@@ -55,6 +62,7 @@ function! BuildCscopeDatabase()
   if filereadable(project_cscope_db)
     exe "cd " . project_base_path
     exe "!cscope -b -R -q -f .git/cscope.out"
+    exe "!find . -name '*.py' > .git/pycscope.files && pycscope.py -i .git/pycscope.files -f .git/pycscope.out"
     exe "!ctags -R --tag-relative=yes -f .git/tags"
     exe "cd " . cwd
     cs reset
