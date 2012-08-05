@@ -28,6 +28,8 @@ nnoremap <F4> :bd<CR>
 " Changes current working directory to the directory of current editing file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
+"nnoremap <leader>cs :cd $CSCOPE_BASEPATH<CR>:!cscope -b -R -q -f .git/cscope.out<CR>
+
 " // Set the height of Source Explorer window
 let g:SrcExpl_winHeight = 8
 
