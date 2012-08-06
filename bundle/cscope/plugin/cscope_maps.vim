@@ -59,7 +59,7 @@ function! BuildCscopeDatabase()
   let project_cscope_db = project_base_path . "/.git/cscope.out"
   let cwd = getcwd()
 
-  if filereadable(project_cscope_db)
+  if isdirectory(project_base_path)
     exe "cd " . project_base_path
     exe "!cscope -b -R -q -f .git/cscope.out"
     exe "!find . -name '*.py' > .git/pycscope.files && pycscope.py -i .git/pycscope.files -f .git/pycscope.out"
