@@ -1,14 +1,16 @@
 call pathogen#infect()
 call pathogen#helptags()
 
-set tabstop=2
-set shiftwidth=2
 set expandtab
-set linebreak
-set nu
 set hlsearch
 set incsearch
+set linebreak
 set nobackup
+set nu
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set wildmode=longest,list
 syntax enable
 
 let mapleader = ","
