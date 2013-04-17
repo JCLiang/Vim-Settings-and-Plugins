@@ -1,6 +1,8 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+set autoindent
+set backspace=2
 set expandtab
 set hlsearch
 set incsearch
@@ -8,9 +10,13 @@ set linebreak
 set nobackup
 set nu
 set shiftwidth=2
+set tabstop=8
+set textwidth=80
 set softtabstop=2
-set tabstop=2
 set wildmode=longest,list
+filetype on
+filetype indent on
+filetype plugin on
 syntax enable
 
 let mapleader = ","

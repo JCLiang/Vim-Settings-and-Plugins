@@ -23,55 +23,6 @@
 " Jason Duell       jduell@alumni.princeton.edu     2002/3/7
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Adds the cscope databse found.
-function! ConnectCscopeDatabase()
-  let project_base_path = $HOME . "/trunk/" . system("repo list . | awk '{print $1}'")
-  let project_base_path = substitute(project_base_path, "\n", "", "")
-  let project_cscope_db = project_base_path . "/.git/cscope.out"
-  let project_pycscope_db = project_base_path . "/.git/pycscope.out"
-
-  " add cscope database from local repo
-  if filereadable(project_cscope_db)
-    exe "cs add " . project_cscope_db . " " . project_base_path
-    echo project_cscope_db . " added with base path: " . project_base_path . "."
-  " add any cscope database in current directory
-  elseif filereadable("cscope.out")
-    cs add cscope.out
-    echo "cscope.out added."
-  " else add the database pointed to by environment variable
-  elseif $CSCOPE_DB != ""
-    cs add $CSCOPE_DB
-    echo $CSCOPE_DB . " added from \$CSCOPE_DB."
-  endif
-
-  " add pycscope database from local repo
-  if filereadable(project_pycscope_db)
-    exe "cs add " . project_pycscope_db . " " . project_base_path
-    echo project_pycscope_db . " added with base path: " . project_base_path . "."
-  endif
-endfunction
-
-
-" Rebuilds the cscope database.
-function! BuildCscopeDatabase()
-  let project_base_path = $HOME . "/trunk/" . system("repo list . | awk '{print $1}'")
-  let project_base_path = substitute(project_base_path, "\n", "", "")
-  let project_cscope_db = project_base_path . "/.git/cscope.out"
-  let cwd = getcwd()
-
-  if isdirectory(project_base_path)
-    exe "cd " . project_base_path
-    exe "!cscope -b -R -q -f .git/cscope.out"
-    exe "!find . -name '*.py' > .git/pycscope.files && pycscope.py -i .git/pycscope.files -f .git/pycscope.out"
-    exe "!ctags -R --tag-relative=yes -f .git/tags"
-    exe "cd " . cwd
-    cs reset
-    echo "cscope and ctags updated."
-  endif
-endfunction
-
-nnoremap <leader>cs :call call(function('BuildCscopeDatabase'), [])<CR>
-
 " This tests to see if vim was configured with the '--enable-cscope' option
 " when it was compiled.  If it wasn't, time to recompile vim... 
 if has("cscope")
@@ -84,8 +35,6 @@ if has("cscope")
     " check cscope for definition of a symbol before checking ctags: set to 1
     " if you want the reverse search order.
     set csto=0
-
-    call ConnectCscopeDatabase()
 
     " show msg when any other cscope db added
     set cscopeverbose
