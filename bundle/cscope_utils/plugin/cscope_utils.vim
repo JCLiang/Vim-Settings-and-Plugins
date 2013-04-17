@@ -37,14 +37,11 @@ for path in [os.path.join(db_path, 'cscope.out'),  # local repo
     break
 if cscope_db:
   vim.command('cs add %s %s' % (cscope_db, base_path))
-  #print 'Cscope db %s added with base path: %s.' % (cscope_db, base_path)
 
 pycscope_db = os.path.join(db_path, 'pycscope.out')
 if os.path.exists(pycscope_db):
   # add pycscope database from local repo
   vim.command('cs add %s %s' % (pycscope_db, base_path))
-  #print 'Pycscope db %s added with base path: %s.' % (
-  #    pycscope_db, base_path)
 
 EOF
 endfunction
@@ -77,7 +74,7 @@ class Spawn(Popen):
     self.stderr = None
     self.stdout, self.stderr = self.process.communicate()
 
-def ConstructFindArgs(path, pattern, output_file, ignore_paths=None):
+def ConstructFindArgs(path, patterns, output_file, ignore_paths=None):
   cmd = ['find', '%s' % path]
   if ignore_paths:
     cmd += ['(']
@@ -88,7 +85,15 @@ def ConstructFindArgs(path, pattern, output_file, ignore_paths=None):
       cmd += ['-path', '%s' % p]
       first = False
     cmd += [')', '-prune', '-o']
-  cmd += ['-name', '%s' % pattern, '-fprint', '%s' % output_file]
+
+  cmd += ['(']
+  first = True
+  for p in patterns:
+    if not first:
+      cmd += ['-o']
+    cmd += ['-name', '%s' % p]
+    first = False
+  cmd += [')', '-fprint', '%s' % output_file]
   return cmd
 
 if os.path.exists(base_path):
@@ -100,7 +105,7 @@ if os.path.exists(base_path):
 
   print 'Building ctags...'
   ctags_files = os.path.join(db_path, CTAGS_FILES)
-  Spawn(ConstructFindArgs('.', '*', ctags_files, ignore_paths=ignore_paths),
+  Spawn(ConstructFindArgs('.', ['*'], ctags_files, ignore_paths=ignore_paths),
         cwd=base_path)
   Spawn(['ctags', '-L', '%s' % ctags_files, '--tag-relative=yes', '-f',
         '%s' % os.path.join(db_path, CTAGS_OUT)],
@@ -108,7 +113,8 @@ if os.path.exists(base_path):
 
   print 'Building cscope...'
   cscope_files = os.path.join(db_path, CSCOPE_FILES)
-  Spawn(ConstructFindArgs('.', '*', cscope_files, ignore_paths=ignore_paths),
+  Spawn(ConstructFindArgs('.', ['*.c', '*.cc', '*.cpp', '*.h'], cscope_files,
+                          ignore_paths=ignore_paths),
         cwd=base_path)
   Spawn(['cscope', '-bqk', '-i', '%s' % cscope_files, '-f',
          '%s' % os.path.join(db_path, CSCOPE_OUT)],
@@ -116,7 +122,7 @@ if os.path.exists(base_path):
 
   print 'Building pycscope...'
   pycscope_files = os.path.join(db_path, PYCSCOPE_FILES)
-  Spawn(ConstructFindArgs('.', '*.py', pycscope_files,
+  Spawn(ConstructFindArgs('.', ['*.py'], pycscope_files,
                           ignore_paths=ignore_paths),
         cwd=base_path)
   Spawn(['pycscope', '-i', '%s' % pycscope_files,
@@ -125,7 +131,7 @@ if os.path.exists(base_path):
 
   vim.command('cs reset')
   print 'Cscope, pycscope, and ctags updated.'
-  
+
 EOF
 endfunction
 
