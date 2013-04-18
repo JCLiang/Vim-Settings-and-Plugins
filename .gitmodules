@@ -1,12 +1,15 @@
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "bundle/vim-multiple-cursors"]
 	path = bundle/vim-multiple-cursors
-	url = git://github.com/terryma/vim-multiple-cursors.git
+	url = https://github.com/terryma/vim-multiple-cursors.git
 [submodule "bundle/vim-gitgutter"]
 	path = bundle/vim-gitgutter
-	url = git://github.com/airblade/vim-gitgutter.git
+	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "bundle/vim-cscope-utils"]
 	path = bundle/vim-cscope-utils
-	url = git://github.com/JCLiang/vim-cscope-utils.git
+	url = https://github.com/JCLiang/vim-cscope-utils.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
