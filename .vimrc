@@ -18,6 +18,7 @@ Bundle 'JCLiang/vim-cscope-utils'
 Bundle 'Valloric/YouCompleteMe'
 " vim-script repos
 Bundle 'delimitMate.vim'
+Bundle 'cscope_macros.vim'
 
 filetype plugin indent on     " required!
 
