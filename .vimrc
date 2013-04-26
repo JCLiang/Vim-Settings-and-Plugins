@@ -16,6 +16,7 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'JCLiang/vim-cscope-utils'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
 " vim-script repos
 Bundle 'delimitMate.vim'
 Bundle 'cscope_macros.vim'
@@ -70,3 +71,5 @@ set colorcolumn=81
 
 " Hotkey mapping for YCM definiton/declaration lookup.
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let g:ycm_autoclose_preview_window_after_insertion = 1
