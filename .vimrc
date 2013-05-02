@@ -72,4 +72,33 @@ set colorcolumn=81
 " Hotkey mapping for YCM definiton/declaration lookup.
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Syntastic settings.
+"let g:syntastic_python_checkers=['pylint_google']
+
+" Space/Tab indentation switching.
+let g:space_indent = 1
+function! SwitchIndentMethod(space_indent)
+  if a:space_indent == -1
+    let g:space_indent = !g:space_indent
+  elseif a:space_indent == 1 || a:space_indent == 0
+    let g:space_indent = a:space_indent
+  else
+    echo "Invalid a:space_indent value: " . a:space_indent
+    return -1
+  endif
+
+  if g:space_indent
+    set softtabstop=2
+    set expandtab
+    echo "Indent method set to space."
+  else
+    set softtabstop=0
+    set noexpandtab
+    echo "Indent method set to tab."
+  endif
+endfunction
+map <leader>sis :call SwitchIndentMethod(1)<CR>
+map <leader>sit :call SwitchIndentMethod(0)<CR>
