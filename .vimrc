@@ -17,6 +17,8 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'JCLiang/vim-cscope-utils'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
+Bundle 'bling/vim-airline'
+Bundle 'altercation/vim-colors-solarized'
 " vim-script repos
 Bundle 'delimitMate.vim'
 Bundle 'cscope_macros.vim'
@@ -25,29 +27,42 @@ filetype plugin indent on     " required!
 
 set autoindent
 set backspace=2
+set cursorline
 set expandtab
 set hlsearch
 set incsearch
+set laststatus=2
 set linebreak
 set nobackup
-set nu
+set noswapfile
+set number
 set shiftwidth=2
+set softtabstop=2
 set tabstop=8
 set textwidth=80
-set softtabstop=2
+set wildmenu
 set wildmode=longest,list
-filetype on
-filetype indent on
-filetype plugin on
+
 syntax enable
+
+" color schemes
+set t_Co=256
+set background=dark
+colorscheme solarized
 
 let mapleader = ","
 let g:mapleader = ","
+
+let g:airline_enable_fugitive=1
+let g:airline_enable_syntastic=2
+let g:airline_theme='light'
 
 nmap <leader>/ :set hlsearch! hlsearch?<CR>
 set switchbuf=usetab,newtab
 nnoremap <C-h> :tabp<CR>
 nnoremap <C-l> :tabn<CR>
+
+nnoremap <leader>] <C-w><C-]><C-w>T
 
 " Splits vertically and create a Bash shell.
 nnoremap <F3> :vs<CR>:ConqueTerm /bin/bash<CR>
@@ -57,6 +72,10 @@ nnoremap <F4> :bd<CR>
 
 " Changes current working directory to the directory of current editing file.
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Relative number
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
 
 " For detecting trailing whitespace.
 highlight default link TrailingWhitespace Error
@@ -76,7 +95,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Syntastic settings.
-"let g:syntastic_python_checkers=['pylint_google']
+let g:syntastic_check_on_wq = 0
 
 " Space/Tab indentation switching.
 let g:space_indent = 1
